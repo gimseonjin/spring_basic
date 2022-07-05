@@ -6,7 +6,9 @@ import com.hanghae99.hanghae99.model.UpdateBoardRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @RestController
@@ -21,8 +23,9 @@ public class BoardController {
     }
 
     @GetMapping("/{id}")
-    public Board getBoard(@PathVariable long id){
-        return (Board) boardRepository.findById(id).get();
+    public Board getBoard(@PathVariable long id) throws Throwable {
+        return (Board) boardRepository.findById(id)
+                .orElseThrow(()-> new EntityNotFoundException());
     }
 
     @PostMapping ("/")
@@ -32,8 +35,13 @@ public class BoardController {
     }
 
     @PutMapping("/{id}")
-    public Board UpdateBoard(@PathVariable long id, @RequestBody UpdateBoardRequest request){
-        Board board = (Board) boardRepository.findById(id).get();
+    public Board UpdateBoard(@PathVariable long id, @RequestBody UpdateBoardRequest request)  throws Throwable {
+
+
+        Board board = (Board) boardRepository.findById(id)
+                .orElseThrow(()-> new EntityNotFoundException());
+
+
         request.updateBoard(board);
         return (Board) boardRepository.save(board);
     }
