@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.hanghae99.hanghae99.Hanghae99ApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.665 s - in com.hanghae99.hanghae99.Hanghae99ApplicationTests
